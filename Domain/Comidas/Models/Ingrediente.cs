@@ -4,13 +4,15 @@ using Domain.Comida.Commands;
 
 namespace Domain.Comida.Models;
 
-public class ItemExtra : Entidade
+public class Ingrediente : Entidade
 {
-    public TipoItem TipoItem { get; set; } = TipoItem.ItemExtra;
+    public TipoItem TipoItem { get; set; } = TipoItem.Ingrediente;
     public string Marca { get; set; }
     public int QuantidadeEstoque { get; set; }
     
-    public ItemExtra(CadastrarItemExtraCommand request)
+    public Ingrediente() { }
+    
+    public Ingrediente(CadastrarIngredienteCommand request)
     {
         Nome = request.Nome;
         Descricao = request.Descricao;
