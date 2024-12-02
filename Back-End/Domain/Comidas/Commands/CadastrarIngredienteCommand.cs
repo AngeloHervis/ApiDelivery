@@ -7,7 +7,7 @@ using Domain.Comida.Interfaces;
 using Domain.Comida.Models;
 using MediatR;
 
-namespace Domain.Comida.Commands;
+namespace Domain.Comidas.Commands;
 
 public class CadastrarIngredienteCommand : IRequest<Guid>
 {

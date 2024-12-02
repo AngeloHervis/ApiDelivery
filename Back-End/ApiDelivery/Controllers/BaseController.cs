@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiDelivery.Controllers;
 
 /// <summary></summary>
-[Authorize("bearer")]
 public abstract class BaseController : ControllerBase
 {
     /// <summary></summary>

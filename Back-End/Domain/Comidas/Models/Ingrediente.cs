@@ -1,6 +1,7 @@
 ﻿using Crosscutting.Enums;
 using Domain._Base.Models;
 using Domain.Comida.Commands;
+using Domain.Comidas.Commands;
 
 namespace Domain.Comida.Models;
 

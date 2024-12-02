@@ -4,6 +4,7 @@ using Domain._Base.Servicos;
 using Domain.Comida.Interfaces;
 using Domain.Comida.Services;
 using Domain.Comida.Validators;
+using Domain.Comidas.Services;
 using Infra.Data;
 using Infra.Data.Repositories;
 using Infra.Log._Base;

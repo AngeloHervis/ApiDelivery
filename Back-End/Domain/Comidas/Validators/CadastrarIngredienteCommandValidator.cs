@@ -2,6 +2,7 @@
 using Domain._Base.Validator;
 using Domain.Comida.Commands;
 using Domain.Comida.Interfaces;
+using Domain.Comidas.Commands;
 using FluentValidation;
 
 namespace Domain.Comida.Validators;
