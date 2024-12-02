@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Crosscutting.Enums;
-using Domain._Base.Events;
 
 namespace Domain._Base.Models;
 
@@ -28,11 +27,6 @@ public abstract class Entidade
     
     [Column("data_cadastro", TypeName = "datetime(6)"), Required]
     public DateTime DataCadastro { get; set; } = DateTime.Now;
-    private List<Event> Events { get; } = [];
-    
-    public void AdicionarEvent(Event @event) => Events.Add(@event);
-    public void LimparEvents() => Events.Clear();
-    public List<Event> ObterEvents() => Events;
     
     public override bool Equals(object obj)
     {

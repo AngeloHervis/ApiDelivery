@@ -11,6 +11,9 @@ public static class CodigosErro
     public const string TamanhoExcedido = "TamanhoExcedido";
     public const string ValorInvalido = "ValorInvalido";
     public const string Duplicidade = "Duplicidade";
-    public const string NaoAutorizado = "NaoAutorizado";
     public const string FalhaDeConexaoComApi = "FalhaDeConexaoComApi";
+    public const string SenhaErrada = "SenhaErrada";
+    public const string SenhasNaoBatem = "SenhasNaoBatem";
+    public const string SenhaInvalida = "SenhaInvalida";
+    public const string UsuarioNaoEncontrado = "UsuarioNaoEncontrado";
 }

@@ -3,7 +3,7 @@ using Domain.Comida.Interfaces;
 using Domain.Comida.Models;
 using Infra.Data.Repository._Base;
 
-namespace Infra.Data.Repository;
+namespace Infra.Data.Repositories;
 
 public class ProdutoRepository : RepositoryBase<Produto>, IProdutoRepository
 {

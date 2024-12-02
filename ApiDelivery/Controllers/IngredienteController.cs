@@ -63,16 +63,4 @@ public class IngredienteController : BaseController
             return TratarExcecoes(e);
         }
     }
-    
-    // URL: https://localhost:5001/api/ingredientes/cadastrar
-    // JSON para testar
-    // {
-    //     "nome": "Tomate",
-    //     "descricao": "Tomate maduro",
-    //     "unidadeMedida": 1,
-    //     "valorPago": 2.5,
-    //     "quantidadeEstoque": 10,
-    //     "ativo": true,
-    //     "marca": "Mercado Boza"
-    // }
 }

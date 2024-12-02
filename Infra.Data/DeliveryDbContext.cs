@@ -10,19 +10,16 @@ namespace Infra.Data;
 public class DeliveryDbContext : DbContext
 {
     private readonly IMediator _mediator;
-    // private readonly IEventStore _eventStore;
 
-    // private DeliveryDbContext(DbContextOptions<DeliveryDbContext> options,
-    //     IMediator mediator,
-    //     IEventStore eventStore
-    // ) : base(options)
-    // {
-    //     _mediator = mediator;
-    //     _eventStore = eventStore;
-    // }
+    private DeliveryDbContext(DbContextOptions<DeliveryDbContext> options,
+        IMediator mediator
+    ) : base(options)
+    {
+        _mediator = mediator;
+    }
     
     public DeliveryDbContext(DbContextOptions<DeliveryDbContext> options) : base(options) { }
-
+    
     public DbSet<Produto> Produtos { get; set; }
     public DbSet<Ingrediente> Ingredientes { get; set; }
     public DbSet<ItemExtra> ItensExtras { get; set; }
@@ -43,31 +40,6 @@ public class DeliveryDbContext : DbContext
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        await PublicarEventosDeDominio();
         return await base.SaveChangesAsync(cancellationToken);
-    }
-
-    private async Task PublicarEventosDeDominio()
-    {
-        var domainEntities = ChangeTracker
-            .Entries<Entidade>()
-            .Where(x => x.Entity.ObterEvents().Count != 0)
-            .ToList();
-    
-        var domainEvents = domainEntities
-            .SelectMany(x => x.Entity.ObterEvents())
-            .ToList();
-    
-        domainEntities.ToList()
-            .ForEach(entity => entity.Entity.LimparEvents());
-    
-        var tasks = domainEvents
-            .Select(async (domainEvent) =>
-            {
-                // _eventStore.Save(domainEvent);
-                await _mediator.Publish(domainEvent);
-            });
-    
-        await Task.WhenAll(tasks);
     }
 }

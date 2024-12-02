@@ -1,13 +1,9 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
-using ApiDelivery.Configuration;
 using ApiDelivery.Middleware;
 using Infra.IoC;
-using MediatR;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-
-const string bearerConstant = "Bearer";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +19,6 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddConfiguracaoAutenticacaoAutorizacao(builder.Configuration);
 
 builder.Services.AddLogging(x => { x.AddConsole(); });
 
@@ -43,33 +38,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 
     c.ExampleFilters();
-
-    c.AddSecurityDefinition(bearerConstant, new OpenApiSecurityScheme
-    {
-        Description = "Autorização via bearer token. Cole apenas o token e mais nada (nem aspas).",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.Http,
-        Scheme = bearerConstant
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = bearerConstant
-                },
-                Scheme = "oauth2",
-                Name = bearerConstant,
-                In = ParameterLocation.Header,
-            },
-            new List<string>()
-        }
-    });
 
     c.CustomSchemaIds(x => x.FullName);
 
@@ -115,4 +83,4 @@ app.UseMiddleware<RequestLoggingMiddleware>();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
