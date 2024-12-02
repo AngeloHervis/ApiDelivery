@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
-using ApiDelivery.Middleware;
+using Domain.Comidas.Commands;
 using Infra.IoC;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -21,6 +21,9 @@ builder.Services.AddCors(options =>
 
 
 builder.Services.AddLogging(x => { x.AddConsole(); });
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly(),
+    typeof(CadastrarIngredienteCommand).Assembly));
 
 builder.Services.AddControllers().AddJsonOptions(x =>
 {
@@ -78,8 +81,6 @@ app.UseCors(origemPermitida);
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseMiddleware<RequestLoggingMiddleware>();
 
 app.MapControllers();
 

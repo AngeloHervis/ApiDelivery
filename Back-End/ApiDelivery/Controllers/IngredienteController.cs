@@ -1,6 +1,6 @@
 ﻿using Crosscutting.Constantes;
-using Domain.Comida.Commands;
 using Domain.Comida.Interfaces;
+using Domain.Comidas.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,6 +50,7 @@ public class IngredienteController : BaseController
     /// <response code="503">Falha de conexão com a API</response>
     [Consumes(TiposRequisicaoERetorno.JsonText)]
     [HttpPost("cadastrar")]
+    [ProducesResponseType(typeof(CadastrarIngredienteCommand), StatusCodes.Status201Created)]
     public async Task<IActionResult> CadastrarIngrediente(CadastrarIngredienteCommand request,
         CancellationToken cancellationToken)
     {

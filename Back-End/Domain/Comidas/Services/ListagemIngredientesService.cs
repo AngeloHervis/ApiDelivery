@@ -1,7 +1,7 @@
 ﻿using Domain.Comida.Interfaces;
 using Domain.Comida.Models;
 
-namespace Domain.Comida.Services;
+namespace Domain.Comidas.Services;
 
 public class ListagemIngredientesService : IListagemIngredientesService
 {
