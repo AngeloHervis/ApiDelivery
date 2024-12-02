@@ -10,8 +10,6 @@ public static class Startup
     {
         using var serviceScope = app.ApplicationServices.CreateScope();
         var context = serviceScope.ServiceProvider.GetService<DeliveryDbContext>();
-        var eventContext = serviceScope.ServiceProvider.GetService<EventStoreContext>();
         await context!.Database.MigrateAsync();
-        await eventContext!.Database.MigrateAsync();
     }
 }
