@@ -1,6 +1,7 @@
 ﻿using Crosscutting.Constantes;
 using Crosscutting.Extensions;
 using Domain.Comida.Models;
+using Domain.Comidas.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

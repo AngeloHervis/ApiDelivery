@@ -1,6 +1,7 @@
 ﻿using Crosscutting.Constantes;
 using Domain.Comida.Commands;
-using Domain.Comida.Interfaces;
+using Domain.Comidas.Interfaces;
+using Domain.Comidas.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,16 +11,9 @@ namespace ApiDelivery.Controllers;
 /// API para gerenciar itens extras
 /// </summary>
 [ApiController]
-[Route("api/itens")]
-public class ItemExtraController : BaseController
+[Route("api/itensExtras")]
+public class ItemExtraController(IMediator mediator) : BaseController
 {
-    private readonly IMediator _mediator;
-
-    public ItemExtraController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-
     /// <summary>
     /// Retorna lista de itens extras
     /// </summary>
@@ -32,7 +26,7 @@ public class ItemExtraController : BaseController
     {
         try
         {
-            var itensExtras = await service.ListarTodosAsync(cancellationToken);
+            var itensExtras = await service.ConsultarItensExtras(cancellationToken);
 
             return Ok(itensExtras);
         }
@@ -55,12 +49,30 @@ public class ItemExtraController : BaseController
     {
         try
         {
-            await _mediator.Send(request, cancellationToken);
+            await mediator.Send(request, cancellationToken);
             return Ok();
         }
         catch (Exception e)
         {
             return TratarExcecoes(e);
         }
+    }
+    
+    /// <summary>
+    /// Excluir um Item Extra
+    /// </summary>
+    /// <response code="201">Item Extra excluido com sucesso</response>
+    /// <response code="404">Item Extra não encontrado</response>
+    /// <response code="503">Falha de conexão com a API</response>
+    [Consumes(TiposRequisicaoERetorno.JsonText)]
+    [HttpDelete("excluir")]
+    public async Task<IActionResult> ExcluirItemExtra(ExcluirItemExtraService service,
+        [FromQuery] Guid id,
+        CancellationToken cancellationToken)
+    {
+        var result = await service.ExcluirItemExtra(id, cancellationToken);
+        return result.IsError
+            ? StatusCode(result.StatusCode, result.Errors)
+            : Ok(result.Data);
     }
 }

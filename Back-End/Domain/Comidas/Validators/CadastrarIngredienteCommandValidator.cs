@@ -1,11 +1,11 @@
 ﻿using Crosscutting.Constantes;
 using Domain._Base.Validator;
-using Domain.Comida.Commands;
 using Domain.Comida.Interfaces;
 using Domain.Comidas.Commands;
+using Domain.Comidas.Interfaces;
 using FluentValidation;
 
-namespace Domain.Comida.Validators;
+namespace Domain.Comidas.Validators;
 
 public class CadastrarIngredienteCommandValidator : BaseValidator<CadastrarIngredienteCommand>,
     ICadastrarIngredienteCommandValidator
@@ -50,13 +50,13 @@ public class CadastrarIngredienteCommandValidator : BaseValidator<CadastrarIngre
             .WithErrorCode(CodigosErro.ValorInvalido)
             .WithMessage(c => string.Format(MensagensErroValidacao.ValorMaiorQueZero, nameof(c.ValorPago)));
         
-        RuleFor(x => x.QuantidadeEstoque)
+        RuleFor(x => x.Quantidade)
             .NotEmpty()
             .WithErrorCode(CodigosErro.CampoObrigatorio)
-            .WithMessage(c => string.Format(MensagensErroValidacao.CampoObrigatorio, nameof(c.QuantidadeEstoque)))
+            .WithMessage(c => string.Format(MensagensErroValidacao.CampoObrigatorio, nameof(c.Quantidade)))
             .GreaterThan(0)
             .WithErrorCode(CodigosErro.ValorInvalido)
-            .WithMessage(c => string.Format(MensagensErroValidacao.ValorMaiorQueZero, nameof(c.QuantidadeEstoque)));
+            .WithMessage(c => string.Format(MensagensErroValidacao.ValorMaiorQueZero, nameof(c.Quantidade)));
         
         RuleFor(x => x.Ativo)
             .NotNull()

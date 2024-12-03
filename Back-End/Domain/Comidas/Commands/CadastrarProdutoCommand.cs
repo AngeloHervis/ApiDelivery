@@ -5,10 +5,11 @@ using Crosscutting.Enums;
 using Crosscutting.Exception;
 using Crosscutting.Interfaces.Log;
 using Domain.Comida.Interfaces;
-using Domain.Comida.Models;
+using Domain.Comidas.Interfaces;
+using Domain.Comidas.Models;
 using MediatR;
 
-namespace Domain.Comida.Commands;
+namespace Domain.Comidas.Commands;
 
 public class CadastrarProdutoCommand : IRequest<Guid>
 {
@@ -17,7 +18,6 @@ public class CadastrarProdutoCommand : IRequest<Guid>
     public UnidadeMedida UnidadeMedida { get; set; }
     public decimal ValorPago { get; set; }
     public decimal ValorVenda { get; set; }
-    public int QuantidadePorcao { get; set; }
     public bool Ativo { get; set; }
     public decimal CustoVariavel { get; set; }
     public decimal Impostos { get; set; }

@@ -10,5 +10,6 @@ public static class MensagensErroValidacao
     public const string ComposicaoVazia = "A composição deve conter pelo menos um item.";
     public const string QuantidadeMaiorQueZeroParaCadaItem = "Cada item da composição deve ter uma quantidade maior que zero.";
     public const string ComposicaoDeveConterIngrediente = "A composição deve incluir pelo menos um ingrediente.";
+    public const string ComposicaoDeveConterItemExtra = "A composição deve incluir pelo menos um item extra.";
     public const string ItemDuplicadoNaComposicao = "A composição não pode conter itens duplicados.";
 }

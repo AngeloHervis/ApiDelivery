@@ -1,6 +1,7 @@
 ﻿using Crosscutting.Constantes;
 using Crosscutting.Extensions;
 using Domain.Comida.Models;
+using Domain.Comidas.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,8 +12,13 @@ public class ProdutoComposicaoMapping : IEntityTypeConfiguration<ProdutoComposic
     public void Configure(EntityTypeBuilder<ProdutoComposicao> builder)
     {
         builder.ToTable(nameof(ProdutoComposicao).ToSnakeCase());
-
-        builder.HasKey(pc => new { pc.ProdutoId, pc.ItemId });
+        
+        builder.Property(pc => pc.Id)
+            .HasColumnName(nameof(ProdutoComposicao.Id).ToSnakeCase())
+            .IsRequired()
+            .ValueGeneratedOnAdd();
+        
+        builder.HasKey(pc => pc.Id);
 
         builder.Property(pc => pc.Quantidade)
             .HasColumnName(nameof(ProdutoComposicao.Quantidade).ToSnakeCase())
@@ -36,7 +42,13 @@ public class ProdutoComposicaoMapping : IEntityTypeConfiguration<ProdutoComposic
         
         builder.HasOne(pc => pc.Ingrediente)
             .WithMany()
-            .HasForeignKey(pc => pc.ItemId)
+            .HasForeignKey(pc => pc.IngredienteId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(pc => pc.ItemExtra)
+            .WithMany()
+            .HasForeignKey(pc => pc.ItemExtraId)
+            .OnDelete(DeleteBehavior.Restrict);
+
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Domain.Comida.Models;
+using Domain.Comidas.Models;
 
-namespace Domain.Comida.Interfaces;
+namespace Domain.Comidas.Interfaces;
 
 public interface IListagemProdutosService
 {
-    Task<List<Produto>> ListarTodosAsync(CancellationToken cancellationToken);
+    Task<List<Produto>> ConsultarProdutos(CancellationToken cancellationToken);
 }

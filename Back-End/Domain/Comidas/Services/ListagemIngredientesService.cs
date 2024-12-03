@@ -1,12 +1,12 @@
-﻿using Domain.Comida.Interfaces;
-using Domain.Comida.Models;
+﻿using Domain.Comidas.Interfaces;
+using Domain.Comidas.Models;
 
 namespace Domain.Comidas.Services;
 
-public class ListagemIngredientesService : IListagemIngredientesService
+public class ListagemIngredientesService(IIngredienteRepository ingredienteRepository) : IListagemIngredientesService
 {
-    public Task<List<Ingrediente>> ListarTodosAsync(CancellationToken cancellationToken)
+    public async Task<List<Ingrediente>> ConsultarIngredientes(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await ingredienteRepository.ConsultarIngredientesAsync(cancellationToken);
     }
 }

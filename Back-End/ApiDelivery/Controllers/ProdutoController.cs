@@ -1,6 +1,7 @@
 ﻿using Crosscutting.Constantes;
-using Domain.Comida.Commands;
-using Domain.Comida.Interfaces;
+using Domain.Comidas.Commands;
+using Domain.Comidas.Interfaces;
+using Domain.Comidas.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,15 +12,8 @@ namespace ApiDelivery.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/produtos")]
-public class ProdutoController : BaseController
+public class ProdutoController(IMediator mediator) : BaseController
 {
-    private readonly IMediator _mediator;
-
-    public ProdutoController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-
     /// <summary>
     /// Retorna lista de produtos
     /// </summary>
@@ -32,7 +26,7 @@ public class ProdutoController : BaseController
     {
         try
         {
-            var produtos = await service.ListarTodosAsync(cancellationToken);
+            var produtos = await service.ConsultarProdutos(cancellationToken);
 
             return Ok(produtos);
         }
@@ -43,9 +37,9 @@ public class ProdutoController : BaseController
     }
     
     /// <summary>
-    /// Cadastro de um novo ingrediente
+    /// Cadastro de um novo produto
     /// </summary>
-    /// <response code="201">Ingrediente cadastrado com sucesso</response>
+    /// <response code="201">Produto cadastrado com sucesso</response>
     /// <response code="400">Erro de validação</response>
     /// <response code="503">Falha de conexão com a API</response>
     [Consumes(TiposRequisicaoERetorno.JsonText)]
@@ -55,7 +49,7 @@ public class ProdutoController : BaseController
     {
         try
         {
-            await _mediator.Send(request, cancellationToken);
+            await mediator.Send(request, cancellationToken);
             return Ok();
         }
         catch (Exception e)
@@ -63,22 +57,22 @@ public class ProdutoController : BaseController
             return TratarExcecoes(e);
         }
     }
-    // URL: https://localhost:5001/api/produtos/cadastrar
-    // JSON para testar
-    // {
-    //     "nome": "Coca-Cola",
-    //     "descricao": "Refrigerante de cola",
-    //     "unidadeMedida": 1,
-    //     "valorPago": 2.5,
-    //     "valorVenda": 5.0,
-    //     "marca": "Coca-Cola",
-    //     "quantidade": 100,
-    //     "ativo": true,
-    //     "custoVariavel": 1.0,
-    //     "impostos": 0.5,
-    //     "taxaCartao": 0.5,
-    //     "composicao": [
-    //         {
-    //             
-    // }
+    
+    /// <summary>
+    /// Excluir um produto
+    /// </summary>
+    /// <response code="201">Produto excluido com sucesso</response>
+    /// <response code="404">Produto não encontrado</response>
+    /// <response code="503">Falha de conexão com a API</response>
+    [Consumes(TiposRequisicaoERetorno.JsonText)]
+    [HttpDelete("excluir")]
+    public async Task<IActionResult> ExcluirProduto(ExcluirProdutoService service,
+        [FromQuery] Guid id,
+        CancellationToken cancellationToken)
+    {
+        var result = await service.ExcluirProduto(id, cancellationToken);
+        return result.IsError
+            ? StatusCode(result.StatusCode, result.Errors)
+            : Ok(result.Data);
+    }
 }

@@ -1,7 +1,7 @@
 ﻿using Domain._Base.Models;
-using Domain.Comida.Commands;
+using Domain.Comidas.Commands;
 
-namespace Domain.Comida.Models;
+namespace Domain.Comidas.Models;
 
 public class Produto : Entidade
 {
@@ -10,7 +10,6 @@ public class Produto : Entidade
     public decimal CustoVariavel { get; set; }
     public decimal Impostos { get; set; }
     public decimal TaxaCartao { get; set; }
-    public int QuantidadePorcao { get; set; }
     
     public Produto() { }
 
@@ -26,7 +25,6 @@ public class Produto : Entidade
         CustoVariavel = request.CustoVariavel;
         Impostos = request.Impostos;
         TaxaCartao = request.TaxaCartao;
-        QuantidadePorcao = request.QuantidadePorcao;
     }
 
     public decimal CalcularCustoTotal()

@@ -1,6 +1,7 @@
 ﻿using Crosscutting.Constantes;
 using Crosscutting.Extensions;
 using Domain.Comida.Models;
+using Domain.Comidas.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -39,8 +40,8 @@ public class IngredienteMapping : IEntityTypeConfiguration<Ingrediente>
             .HasMaxLength(Caracteres.Cem)
             .IsRequired();
 
-        builder.Property(p => p.QuantidadeEstoque)
-            .HasColumnName(nameof(Ingrediente.QuantidadeEstoque).ToSnakeCase())
+        builder.Property(p => p.Quantidade)
+            .HasColumnName(nameof(Ingrediente.Quantidade).ToSnakeCase())
             .IsRequired();
 
         builder.Property(p => p.Ativo)

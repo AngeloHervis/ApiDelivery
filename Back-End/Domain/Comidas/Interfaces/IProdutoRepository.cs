@@ -1,10 +1,10 @@
-﻿using Crosscutting.Paginacao;
-using Domain._Base.Interfaces;
+﻿using Domain._Base.Interfaces;
 using Domain.Comida.Models;
+using Domain.Comidas.Models;
 
-namespace Domain.Comida.Interfaces;
+namespace Domain.Comidas.Interfaces;
 
 public interface IProdutoRepository : IRepositoryBase<Produto>
 {
-    Task<RespostaPaginacao<Produto>> ConsultarProdutosIfoodAsync(CancellationToken cancellationToken);
+    Task<List<Produto>> ConsultarProdutosAsync(CancellationToken cancellationToken);
 }

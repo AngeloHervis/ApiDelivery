@@ -2,9 +2,10 @@
 using Domain._Base.Interfaces;
 using Domain._Base.Servicos;
 using Domain.Comida.Interfaces;
-using Domain.Comida.Services;
 using Domain.Comida.Validators;
+using Domain.Comidas.Interfaces;
 using Domain.Comidas.Services;
+using Domain.Comidas.Validators;
 using Infra.Data;
 using Infra.Data.Repositories;
 using Infra.Log._Base;

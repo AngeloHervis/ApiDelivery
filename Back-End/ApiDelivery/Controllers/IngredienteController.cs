@@ -1,6 +1,7 @@
 ﻿using Crosscutting.Constantes;
-using Domain.Comida.Interfaces;
 using Domain.Comidas.Commands;
+using Domain.Comidas.Interfaces;
+using Domain.Comidas.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,15 +12,8 @@ namespace ApiDelivery.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/ingredientes")]
-public class IngredienteController : BaseController
+public class IngredienteController(IMediator mediator) : BaseController
 {
-    private readonly IMediator _mediator;
-
-    public IngredienteController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-
     /// <summary>
     /// Retorna lista de ingredientes
     /// </summary>
@@ -32,7 +26,7 @@ public class IngredienteController : BaseController
     {
         try
         {
-            var ingredientes = await service.ListarTodosAsync(cancellationToken);
+            var ingredientes = await service.ConsultarIngredientes(cancellationToken);
 
             return Ok(ingredientes);
         }
@@ -56,12 +50,53 @@ public class IngredienteController : BaseController
     {
         try
         {
-            await _mediator.Send(request, cancellationToken);
+            await mediator.Send(request, cancellationToken);
             return Ok();
         }
         catch (Exception e)
         {
             return TratarExcecoes(e);
         }
+    }
+    
+    /// <summary>
+    /// Edição de um novo ingrediente
+    /// </summary>
+    /// <response code="201">Ingrediente editado com sucesso</response>
+    /// <response code="400">Erro de validação</response>
+    /// <response code="503">Falha de conexão com a API</response>
+    [Consumes(TiposRequisicaoERetorno.JsonText)]
+    [HttpPost("editar")]
+    [ProducesResponseType(typeof(EditarIngredienteCommand), StatusCodes.Status201Created)]
+    public async Task<IActionResult> CadastrarIngrediente(EditarIngredienteCommand request,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            await mediator.Send(request, cancellationToken);
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return TratarExcecoes(e);
+        }
+    }
+    
+    /// <summary>
+    /// Excluir um ingrediente
+    /// </summary>
+    /// <response code="201">Ingrediente excluido com sucesso</response>
+    /// <response code="404">Ingrediente não encontrado</response>
+    /// <response code="503">Falha de conexão com a API</response>
+    [Consumes(TiposRequisicaoERetorno.JsonText)]
+    [HttpDelete("excluir")]
+    public async Task<IActionResult> ExcluirIngrediente(ExcluirIngredienteService service,
+        [FromQuery] Guid id,
+        CancellationToken cancellationToken)
+    {
+        var result = await service.ExcluirIngrediente(id, cancellationToken);
+        return result.IsError
+            ? StatusCode(result.StatusCode, result.Errors)
+            : Ok(result.Data);
     }
 }
