@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class AgoraVaiDarBom : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,6 +20,9 @@ namespace Infra.Data.Migrations
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     tipo_item = table.Column<int>(type: "int", nullable: false),
+                    marca = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    quantidade_estoque = table.Column<int>(type: "int", nullable: false),
                     nome = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     descricao = table.Column<string>(type: "varchar(250)", maxLength: 1000, nullable: false)
@@ -27,10 +30,6 @@ namespace Infra.Data.Migrations
                     unidade_medida = table.Column<string>(type: "varchar(250)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     valor_pago = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    valor_venda = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    marca = table.Column<string>(type: "varchar(250)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    quantidade = table.Column<int>(type: "int", nullable: false),
                     ativo = table.Column<ulong>(type: "bit", nullable: false),
                     data_cadastro = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -46,6 +45,9 @@ namespace Infra.Data.Migrations
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     tipo_item = table.Column<int>(type: "int", nullable: false),
+                    marca = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    quantidade_estoque = table.Column<int>(type: "int", nullable: false),
                     nome = table.Column<string>(type: "varchar(250)", maxLength: 250, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     descricao = table.Column<string>(type: "varchar(250)", maxLength: 1000, nullable: false)
@@ -53,10 +55,6 @@ namespace Infra.Data.Migrations
                     unidade_medida = table.Column<string>(type: "varchar(250)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     valor_pago = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    valor_venda = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    marca = table.Column<string>(type: "varchar(250)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    quantidade = table.Column<int>(type: "int", nullable: false),
                     ativo = table.Column<ulong>(type: "bit", nullable: false),
                     data_cadastro = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -71,6 +69,7 @@ namespace Infra.Data.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    valor_venda = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     custo_variavel = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     impostos = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     taxa_cartao = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -81,10 +80,6 @@ namespace Infra.Data.Migrations
                     unidade_medida = table.Column<string>(type: "varchar(250)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     valor_pago = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    valor_venda = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    marca = table.Column<string>(type: "varchar(250)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    quantidade = table.Column<int>(type: "int", nullable: false),
                     ativo = table.Column<ulong>(type: "bit", nullable: false),
                     data_cadastro = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -123,19 +118,20 @@ namespace Infra.Data.Migrations
                 name: "produto_composicao",
                 columns: table => new
                 {
+                    id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     ProdutoId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    ItemId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     ItemExtraId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    IngredienteId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     unidade_medida = table.Column<int>(type: "int", nullable: false),
                     quantidade = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     tipo_item = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_produto_composicao", x => new { x.ProdutoId, x.ItemId });
+                    table.PrimaryKey("PK_produto_composicao", x => x.id);
                     table.ForeignKey(
-                        name: "FK_produto_composicao_ingrediente_ItemId",
-                        column: x => x.ItemId,
+                        name: "FK_produto_composicao_ingrediente_IngredienteId",
+                        column: x => x.IngredienteId,
                         principalTable: "ingrediente",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -143,7 +139,8 @@ namespace Infra.Data.Migrations
                         name: "FK_produto_composicao_item_extra_ItemExtraId",
                         column: x => x.ItemExtraId,
                         principalTable: "item_extra",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_produto_composicao_produto_ProdutoId",
                         column: x => x.ProdutoId,
@@ -154,14 +151,19 @@ namespace Infra.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
+                name: "IX_produto_composicao_IngredienteId",
+                table: "produto_composicao",
+                column: "IngredienteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_produto_composicao_ItemExtraId",
                 table: "produto_composicao",
                 column: "ItemExtraId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_produto_composicao_ItemId",
+                name: "IX_produto_composicao_ProdutoId",
                 table: "produto_composicao",
-                column: "ItemId");
+                column: "ProdutoId");
         }
 
         /// <inheritdoc />

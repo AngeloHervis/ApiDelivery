@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Data.Migrations
 {
     [DbContext(typeof(DeliveryDbContext))]
-    [Migration("20241107235743_CorrigirEntidade")]
-    partial class CorrigirEntidade
+    [Migration("20241202235233_AgoraVaiDarBom")]
+    partial class AgoraVaiDarBom
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,206 +24,6 @@ namespace Infra.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("Domain.Comida.Models.Ingrediente", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("id");
-
-                    b.Property<ulong>("Ativo")
-                        .HasColumnType("bit")
-                        .HasColumnName("ativo");
-
-                    b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("data_cadastro");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("descricao");
-
-                    b.Property<string>("Marca")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("marca");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("nome");
-
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("int")
-                        .HasColumnName("quantidade");
-
-                    b.Property<int>("TipoItem")
-                        .HasColumnType("int")
-                        .HasColumnName("tipo_item");
-
-                    b.Property<string>("UnidadeMedida")
-                        .IsRequired()
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("unidade_medida");
-
-                    b.Property<decimal>("ValorPago")
-                        .HasColumnType("decimal(10, 2)")
-                        .HasColumnName("valor_pago");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ingrediente", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Comida.Models.ItemExtra", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("id");
-
-                    b.Property<ulong>("Ativo")
-                        .HasColumnType("bit")
-                        .HasColumnName("ativo");
-
-                    b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("data_cadastro");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("descricao");
-
-                    b.Property<string>("Marca")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("marca");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("nome");
-
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("int")
-                        .HasColumnName("quantidade");
-
-                    b.Property<int>("TipoItem")
-                        .HasColumnType("int")
-                        .HasColumnName("tipo_item");
-
-                    b.Property<string>("UnidadeMedida")
-                        .IsRequired()
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("unidade_medida");
-
-                    b.Property<decimal>("ValorPago")
-                        .HasColumnType("decimal(10, 2)")
-                        .HasColumnName("valor_pago");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("item_extra", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Comida.Models.Produto", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("id");
-
-                    b.Property<ulong>("Ativo")
-                        .HasColumnType("bit")
-                        .HasColumnName("ativo");
-
-                    b.Property<decimal>("CustoVariavel")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("custo_variavel");
-
-                    b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("data_cadastro");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("descricao");
-
-                    b.Property<decimal>("Impostos")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("impostos");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("nome");
-
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("int")
-                        .HasColumnName("quantidade");
-
-                    b.Property<decimal>("TaxaCartao")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("taxa_cartao");
-
-                    b.Property<string>("UnidadeMedida")
-                        .IsRequired()
-                        .HasColumnType("varchar(250)")
-                        .HasColumnName("unidade_medida");
-
-                    b.Property<decimal>("ValorPago")
-                        .HasColumnType("decimal(10, 2)")
-                        .HasColumnName("valor_pago");
-
-                    b.Property<decimal>("ValorVenda")
-                        .HasColumnType("decimal(65,30)")
-                        .HasColumnName("valor_venda");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("produto", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Comida.Models.ProdutoComposicao", b =>
-                {
-                    b.Property<Guid>("ProdutoId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("ItemId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid?>("ItemExtraId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<decimal>("Quantidade")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("quantidade");
-
-                    b.Property<int>("TipoItem")
-                        .HasColumnType("int")
-                        .HasColumnName("tipo_item");
-
-                    b.Property<int>("UnidadeMedida")
-                        .HasColumnType("int")
-                        .HasColumnName("unidade_medida");
-
-                    b.HasKey("ProdutoId", "ItemId");
-
-                    b.HasIndex("ItemExtraId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("produto_composicao", (string)null);
-                });
 
             modelBuilder.Entity("Domain.Comida.Models.ProdutoIfood", b =>
                 {
@@ -280,19 +80,222 @@ namespace Infra.Data.Migrations
                     b.ToTable("produto_ifood", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Comida.Models.ProdutoComposicao", b =>
+            modelBuilder.Entity("Domain.Comidas.Models.Ingrediente", b =>
                 {
-                    b.HasOne("Domain.Comida.Models.ItemExtra", "ItemExtra")
-                        .WithMany()
-                        .HasForeignKey("ItemExtraId");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("id");
 
-                    b.HasOne("Domain.Comida.Models.Ingrediente", "Ingrediente")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Property<ulong>("Ativo")
+                        .HasColumnType("bit")
+                        .HasColumnName("ativo");
 
-                    b.HasOne("Domain.Comida.Models.Produto", "Produto")
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("data_cadastro");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("descricao");
+
+                    b.Property<string>("Marca")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("marca");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("nome");
+
+                    b.Property<int>("QuantidadeEstoque")
+                        .HasColumnType("int")
+                        .HasColumnName("quantidade_estoque");
+
+                    b.Property<int>("TipoItem")
+                        .HasColumnType("int")
+                        .HasColumnName("tipo_item");
+
+                    b.Property<string>("UnidadeMedida")
+                        .IsRequired()
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("unidade_medida");
+
+                    b.Property<decimal>("ValorPago")
+                        .HasColumnType("decimal(10, 2)")
+                        .HasColumnName("valor_pago");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ingrediente", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Comidas.Models.ItemExtra", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("id");
+
+                    b.Property<ulong>("Ativo")
+                        .HasColumnType("bit")
+                        .HasColumnName("ativo");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("data_cadastro");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("descricao");
+
+                    b.Property<string>("Marca")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("marca");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("nome");
+
+                    b.Property<int>("QuantidadeEstoque")
+                        .HasColumnType("int")
+                        .HasColumnName("quantidade_estoque");
+
+                    b.Property<int>("TipoItem")
+                        .HasColumnType("int")
+                        .HasColumnName("tipo_item");
+
+                    b.Property<string>("UnidadeMedida")
+                        .IsRequired()
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("unidade_medida");
+
+                    b.Property<decimal>("ValorPago")
+                        .HasColumnType("decimal(10, 2)")
+                        .HasColumnName("valor_pago");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("item_extra", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Comidas.Models.Produto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("id");
+
+                    b.Property<ulong>("Ativo")
+                        .HasColumnType("bit")
+                        .HasColumnName("ativo");
+
+                    b.Property<decimal>("CustoVariavel")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("custo_variavel");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("data_cadastro");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("descricao");
+
+                    b.Property<decimal>("Impostos")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("impostos");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("nome");
+
+                    b.Property<decimal>("TaxaCartao")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("taxa_cartao");
+
+                    b.Property<string>("UnidadeMedida")
+                        .IsRequired()
+                        .HasColumnType("varchar(250)")
+                        .HasColumnName("unidade_medida");
+
+                    b.Property<decimal>("ValorPago")
+                        .HasColumnType("decimal(10, 2)")
+                        .HasColumnName("valor_pago");
+
+                    b.Property<decimal>("ValorVenda")
+                        .HasColumnType("decimal(65,30)")
+                        .HasColumnName("valor_venda");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("produto", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Comidas.Models.ProdutoComposicao", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)")
+                        .HasColumnName("id");
+
+                    b.Property<Guid?>("IngredienteId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("ItemExtraId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("ProdutoId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<decimal>("Quantidade")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("quantidade");
+
+                    b.Property<int>("TipoItem")
+                        .HasColumnType("int")
+                        .HasColumnName("tipo_item");
+
+                    b.Property<int>("UnidadeMedida")
+                        .HasColumnType("int")
+                        .HasColumnName("unidade_medida");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IngredienteId");
+
+                    b.HasIndex("ItemExtraId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("produto_composicao", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Comidas.Models.ProdutoComposicao", b =>
+                {
+                    b.HasOne("Domain.Comidas.Models.Ingrediente", "Ingrediente")
+                        .WithMany()
+                        .HasForeignKey("IngredienteId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Comidas.Models.ItemExtra", "ItemExtra")
+                        .WithMany()
+                        .HasForeignKey("ItemExtraId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Comidas.Models.Produto", "Produto")
                         .WithMany("Composicao")
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -305,7 +308,7 @@ namespace Infra.Data.Migrations
                     b.Navigation("Produto");
                 });
 
-            modelBuilder.Entity("Domain.Comida.Models.Produto", b =>
+            modelBuilder.Entity("Domain.Comidas.Models.Produto", b =>
                 {
                     b.Navigation("Composicao");
                 });

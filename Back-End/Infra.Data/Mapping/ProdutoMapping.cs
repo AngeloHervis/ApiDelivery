@@ -2,6 +2,7 @@
 using Crosscutting.Extensions;
 using Domain._Base.Models;
 using Domain.Comida.Models;
+using Domain.Comidas.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -38,10 +39,6 @@ public class ProdutoMapping : IEntityTypeConfiguration<Produto>
 
         builder.Property(p => p.ValorVenda)
             .HasColumnName(nameof(Produto.ValorVenda).ToSnakeCase())
-            .IsRequired();
-
-        builder.Property(p => p.QuantidadePorcao)
-            .HasColumnName(nameof(Produto.QuantidadePorcao).ToSnakeCase())
             .IsRequired();
 
         builder.Property(p => p.Ativo)

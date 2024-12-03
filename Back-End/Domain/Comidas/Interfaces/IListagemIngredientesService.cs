@@ -1,8 +1,8 @@
-﻿using Domain.Comida.Models;
+﻿using Domain.Comidas.Models;
 
-namespace Domain.Comida.Interfaces;
+namespace Domain.Comidas.Interfaces;
 
 public interface IListagemIngredientesService
 {
-    Task<List<Ingrediente>> ListarTodosAsync(CancellationToken cancellationToken);
+    Task<List<Ingrediente>> ConsultarIngredientes(CancellationToken cancellationToken);
 }

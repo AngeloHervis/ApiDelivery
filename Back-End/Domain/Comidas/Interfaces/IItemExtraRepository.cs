@@ -1,10 +1,10 @@
-﻿using Crosscutting.Paginacao;
-using Domain._Base.Interfaces;
+﻿using Domain._Base.Interfaces;
 using Domain.Comida.Models;
+using Domain.Comidas.Models;
 
-namespace Domain.Comida.Interfaces;
+namespace Domain.Comidas.Interfaces;
 
 public interface IItemExtraRepository : IRepositoryBase<ItemExtra>
 {
-    Task<RespostaPaginacao<ItemExtra>> ConsultarItemExtraAsync(CancellationToken cancellationToken);
+    Task<List<ItemExtra>> ConsultarItensExtrasAsync(CancellationToken cancellationToken);
 }

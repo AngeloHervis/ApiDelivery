@@ -5,6 +5,8 @@ using Crosscutting.Exception;
 using Crosscutting.Interfaces.Log;
 using Domain.Comida.Interfaces;
 using Domain.Comida.Models;
+using Domain.Comidas.Interfaces;
+using Domain.Comidas.Models;
 using MediatR;
 
 namespace Domain.Comidas.Commands;
@@ -15,7 +17,7 @@ public class CadastrarIngredienteCommand : IRequest<Guid>
     public string Descricao { get; set; }
     public UnidadeMedida UnidadeMedida { get; set; }
     public decimal ValorPago { get; set; }
-    public int QuantidadeEstoque { get; set; }
+    public int Quantidade { get; set; }
     public bool Ativo { get; set; }
     public string Marca { get; set; }
 

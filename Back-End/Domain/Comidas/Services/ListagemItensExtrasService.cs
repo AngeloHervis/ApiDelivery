@@ -1,12 +1,13 @@
-﻿using Domain.Comida.Interfaces;
-using Domain.Comida.Models;
+﻿using Domain.Comida.Models;
+using Domain.Comidas.Interfaces;
+using Domain.Comidas.Models;
 
-namespace Domain.Comida.Services;
+namespace Domain.Comidas.Services;
 
-public class ListagemItensExtrasService : IListagemItensExtrasService
+public class ListagemItensExtrasService(IItemExtraRepository itemExtraRepository) : IListagemItensExtrasService
 {
-    public Task<List<ItemExtra>> ListarTodosAsync(CancellationToken cancellationToken)
+    public async Task<List<ItemExtra>> ConsultarItensExtras(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await itemExtraRepository.ConsultarItensExtrasAsync(cancellationToken);
     }
 }

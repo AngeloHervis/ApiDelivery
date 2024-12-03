@@ -1,21 +1,16 @@
-﻿using Crosscutting.Paginacao;
-using Domain.Comida.Interfaces;
-using Domain.Comida.Models;
+﻿using Domain.Comida.Models;
+using Domain.Comidas.Interfaces;
+using Domain.Comidas.Models;
 using Infra.Data.Repository._Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Data.Repositories;
 
-public class ProdutoRepository : RepositoryBase<Produto>, IProdutoRepository
+public class ProdutoRepository(DeliveryDbContext context) : RepositoryBase<Produto>(context), IProdutoRepository
 {
-    private readonly DeliveryDbContext _context;
-    
-    public ProdutoRepository(DeliveryDbContext context) : base(context)
-    {
-        _context = context;
-    }
-
-    public Task<RespostaPaginacao<Produto>> ConsultarProdutosIfoodAsync(CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
+    private readonly DeliveryDbContext _context = context;
+    public async Task<List<Produto>> ConsultarProdutosAsync(CancellationToken cancellationToken)
+    => await _context.Produtos
+        .AsQueryable()
+        .ToListAsync(cancellationToken);
 }

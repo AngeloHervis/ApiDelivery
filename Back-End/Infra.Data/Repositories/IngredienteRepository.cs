@@ -1,18 +1,16 @@
-﻿using Crosscutting.Paginacao;
-using Domain.Comida.Interfaces;
-using Domain.Comida.Models;
+﻿using Domain.Comidas.Interfaces;
+using Domain.Comidas.Models;
 using Infra.Data.Repository._Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Data.Repositories;
 
-public class IngredienteRepository : RepositoryBase<Ingrediente>, IIngredienteRepository
+public class IngredienteRepository(DeliveryDbContext context) : RepositoryBase<Ingrediente>(context), IIngredienteRepository
 {
-    public IngredienteRepository(DeliveryDbContext context) : base(context)
-    {
-    }
-
-    public Task<RespostaPaginacao<Ingrediente>> ConsultarIngredientesAsync(CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
+    private readonly DeliveryDbContext _context = context;
+    
+    public async Task<List<Ingrediente>> ConsultarIngredientesAsync(CancellationToken cancellationToken)
+    => await _context.Ingredientes
+        .AsQueryable()
+        .ToListAsync(cancellationToken);
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Itens</title>
+    <link rel="stylesheet" href="./css/listagem.css">
+  </head>
+  <body>
+    <div class="listagem-container">
+      <h1 class="listagem-titulo">Lista de Ingredientes, Itens Extras e Produtos</h1>
+
+      <div class="card">
+        <h2>Ingredientes</h2>
+        <button id="obterIngredientes" class="botao-acao">Obter Ingredientes</button>
+        <table id="ingredientesTabela" class="tabela-listagem">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Unidade de Medida</th>
+              <th>Quantidade em Estoque</th>
+              <th>Valor Pago</th>
+              <th>Marca</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Itens Extras</h2>
+        <button id="obterItensExtras" class="botao-acao">Obter Itens Extras</button>
+        <table id="itensExtrasTabela" class="tabela-listagem">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Unidade de Medida</th>
+              <th>Quantidade em Estoque</th>
+              <th>Valor Pago</th>
+              <th>Marca</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Produtos</h2>
+        <button id="obterProdutos" class="botao-acao">Obter Produtos</button>
+        <table id="produtosTabela" class="tabela-listagem">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Descrição</th>
+              <th>Unidade de Medida</th>
+              <th>Valor Venda</th>
+              <th>Quantidade Porção</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="js/listagem.js"></script>
+  </body>
+</html>

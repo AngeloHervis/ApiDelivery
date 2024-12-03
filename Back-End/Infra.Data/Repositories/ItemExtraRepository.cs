@@ -1,18 +1,18 @@
-﻿using Crosscutting.Paginacao;
-using Domain.Comida.Interfaces;
-using Domain.Comida.Models;
+﻿using Domain.Comida.Models;
+using Domain.Comidas.Interfaces;
+using Domain.Comidas.Models;
 using Infra.Data.Repository._Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Data.Repositories;
 
-public class ItemExtraRepository : RepositoryBase<ItemExtra>, IItemExtraRepository
+public class ItemExtraRepository(DeliveryDbContext context) : RepositoryBase<ItemExtra>(context), IItemExtraRepository
 {
-    public ItemExtraRepository(DeliveryDbContext context) : base(context)
-    {
-    }
-
-    public Task<RespostaPaginacao<ItemExtra>> ConsultarItemExtraAsync(CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
+    private readonly DeliveryDbContext _context = context;
+    
+    public async Task<List<ItemExtra>> ConsultarItensExtrasAsync(CancellationToken cancellationToken)
+    => await _context.ItensExtras
+        .AsQueryable()
+        .ToListAsync(cancellationToken);
+            
 }

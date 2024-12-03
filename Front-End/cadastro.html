@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Itens</title>
+    <link rel="stylesheet" href="./css/cadastro.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Cadastro de Ingredientes, Itens Extras e Produtos</h1>
+      
+      <form id="cadastroForm">
+        <label for="tipoCadastro">Tipo de Cadastro</label>
+        <select id="tipoCadastro" required>
+          <option value="" disabled selected>Selecione o tipo de cadastro</option>
+          <option value="ingredientes">Ingrediente</option>
+          <option value="itensExtras">Item Extra</option>
+          <option value="produtos">Produto</option>
+        </select>
+
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" placeholder="Nome" required />
+
+        <label for="descricao">Descrição</label>
+        <input type="text" id="descricao" placeholder="Descrição" />
+
+        <label for="unidadeMedida">Unidade de Medida</label>
+        <select id="unidadeMedida" required>
+          <option value="" disabled selected>Selecione a unidade de medida</option>
+          <option value="Unidade">Unidade</option>
+          <option value="Quilogramas">Quilogramas</option>
+          <option value="Litros">Litros</option>
+        </select>
+
+        <label for="quantidadeEstoque">Quantidade em Estoque</label>
+        <input type="number" id="quantidadeEstoque" placeholder="Quantidade em Estoque" required />
+
+        <label for="valor">Valor Pago</label>
+        <input type="text" id="valor" placeholder="Valor Pago" required />
+
+        <label for="marca">Marca</label>
+        <input type="text" id="marca" placeholder="Marca" required />
+
+        <button type="submit">Cadastrar Item</button>
+      </form>
+    </div>
+    <script src="js/cadastro.js"></script>
+  </body>
+</html>

@@ -1,7 +1,6 @@
-﻿using Domain.Comida.Commands;
-using Domain.Comidas.Commands;
+﻿using Domain.Comidas.Commands;
 using FluentValidation;
 
-namespace Domain.Comida.Interfaces;
+namespace Domain.Comidas.Interfaces;
 
 public interface ICadastrarIngredienteCommandValidator : IValidator<CadastrarIngredienteCommand> { }

@@ -1,6 +1,7 @@
 ﻿using Domain._Base.Interfaces;
 using Domain._Base.Models;
 using Domain.Comida.Models;
+using Domain.Comidas.Models;
 using Infra.Data.Mapping;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

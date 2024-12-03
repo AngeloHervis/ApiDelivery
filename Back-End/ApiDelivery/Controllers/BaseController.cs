@@ -1,7 +1,6 @@
 ﻿using ApiDelivery.Respostas;
 using Crosscutting.Constantes;
 using Crosscutting.Exception;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiDelivery.Controllers;

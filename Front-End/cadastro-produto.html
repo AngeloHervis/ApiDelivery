@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Produtos</title>
+  <link rel="stylesheet" href="./css/cadastro-produto.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Cadastro de Produtos</h1>
+    <form id="produtoForm">
+      <input type="text" id="nomeProduto" placeholder="Nome do Produto" required>
+      <textarea id="descricaoProduto" placeholder="Descrição do Produto"></textarea>
+      
+      <!-- Custo Variável, Impostos e Taxa de Cartão - agora preenchidos pelo usuário -->
+      <input type="number" id="custoVariavelProduto" placeholder="Custo Variável" required>
+      <input type="number" id="impostosProduto" placeholder="Impostos (%)" required>
+      <input type="number" id="taxaCartaoProduto" placeholder="Taxa de Cartão (%)" required>
+      
+      <div class="composicao">
+        <h2>Composição do Produto</h2>
+
+        <div class="selecao-ingredientes">
+          <h3>Ingredientes</h3>
+          <div id="ingredientesContainer">
+            <!-- Contêiner onde serão adicionados os campos de seleção de ingredientes e quantidade -->
+          </div>
+          <button type="button" id="adicionarIngrediente">Adicionar Ingrediente</button>
+        </div>
+
+        <div class="selecao-itens-extras">
+          <h3>Itens Extras</h3>
+          <div id="itensExtrasContainer">
+            <!-- Contêiner onde serão adicionados os campos de seleção de itens extras e quantidade -->
+          </div>
+          <button type="button" id="adicionarItemExtra">Adicionar Item Extra</button>
+        </div>
+      </div>
+
+      <button type="submit">Cadastrar Produto</button>
+    </form>
+  </div>
+  <script src="./js/cadastro-produto.js"></script>
+</body>
+</html>

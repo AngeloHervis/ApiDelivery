@@ -2,7 +2,7 @@
 using Domain._Base.Models;
 using Domain.Comida.Commands;
 
-namespace Domain.Comida.Models;
+namespace Domain.Comidas.Models;
 
 public class ItemExtra : Entidade
 {

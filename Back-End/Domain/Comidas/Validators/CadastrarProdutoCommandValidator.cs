@@ -1,11 +1,11 @@
 ﻿using Crosscutting.Constantes;
 using Crosscutting.Enums;
 using Domain._Base.Validator;
-using Domain.Comida.Commands;
-using Domain.Comida.Interfaces;
+using Domain.Comidas.Commands;
+using Domain.Comidas.Interfaces;
 using FluentValidation;
 
-namespace Domain.Comida.Validators;
+namespace Domain.Comidas.Validators;
 
 public class CadastrarProdutoCommandValidator : BaseValidator<CadastrarProdutoCommand>,
     ICadastrarProdutoCommandValidator
@@ -87,13 +87,16 @@ public class CadastrarProdutoCommandValidator : BaseValidator<CadastrarProdutoCo
             .NotEmpty()
             .WithErrorCode(CodigosErro.CampoObrigatorio)
             .WithMessage(MensagensErroValidacao.ComposicaoVazia)
-            .Must(c => c.All(i => i.Quantidade > 0))
+            .Must(c => c.TrueForAll(i => i.Quantidade > 0))
             .WithErrorCode(CodigosErro.ValorInvalido)
             .WithMessage(MensagensErroValidacao.QuantidadeMaiorQueZeroParaCadaItem)
-            .Must(c => c.Any(i => i.TipoItem == TipoItem.Ingrediente))
+            .Must(c => c.Exists(i => i.TipoItem == TipoItem.Ingrediente))
             .WithErrorCode(CodigosErro.CampoObrigatorio)
             .WithMessage(MensagensErroValidacao.ComposicaoDeveConterIngrediente)
-            .Must(c => c.GroupBy(i => i.ItemId).All(g => g.Count() == 1))
+            .Must(c => c.Exists(i => i.TipoItem == TipoItem.ItemExtra))
+            .WithErrorCode(CodigosErro.CampoObrigatorio)
+            .WithMessage(MensagensErroValidacao.ComposicaoDeveConterItemExtra)
+            .Must(c => c.GroupBy(i => i.IngredienteId).All(g => g.Count() == 1))
             .WithErrorCode(CodigosErro.Duplicidade)
             .WithMessage(MensagensErroValidacao.ItemDuplicadoNaComposicao);
     }
